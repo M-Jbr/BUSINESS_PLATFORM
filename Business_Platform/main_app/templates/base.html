@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"crossorigin="anonymous" />
+
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar bg- " >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Business</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'url_main:home' %}">Business</a>
+              </li>
+
+            
+              {% if perms.main_app.view_projects %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'url_main:provider_panel' request.user.id  %}">Dashboard</a>
+              </li>
+              {% endif %}
+              {% if perms.customers.view_orders %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'url_customers:order_list' request.user.id %}">My Orders</a>
+              </li>
+              {% endif %}
+
+             {% if request.user.is_authenticated %}
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'url_customers:orders_public' %}">Orders</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'url_main:projects_liked' request.user.id %}">My Favorite</a>
+            </li>
+             {% endif %} 
+            </ul>
+            {% if request.user.is_authenticated %}
+            <div class="text-success"> <a class="nav-link active"  href="{% url 'url_accounts:user_profile' request.user.id %}">{{request.user.username}} </a></div>  
+            <div class="text-danger m-2"> <a  href="{% url 'url_accounts:logout_user' %}"><i class="fas fa-sign-out-alt"></i></a></div> 
+            {% else %} 
+            <div class="text-danger m-2"> <a href="{% url 'url_accounts:login_user' %}"><i class="fas fa-sign-in-alt"></i></a></div> 
+            {% endif %}
+            
+            <!-- <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+   
+      {% block content %}
+
+
+      {% endblock %}
+      
+      <footer class="bg-light text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            
+      
+            <!-- Twitter -->
+            <a
+              class="btn text-white btn-floating m-1"
+              style="background-color: #55acee;"
+              href="#!"
+              role="button"
+              ><i class="fab fa-twitter"></i
+            ></a>
+      
+            
+      
+           
+      
+            
+            <!-- Github -->
+            <a
+              class="btn text-white btn-floating m-1"
+              style="background-color: #333333;"
+              href="#!"
+              role="button"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2023 Copyright:
+          <a class="text-white" href="">MJHHaL</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+</body>
+</html>

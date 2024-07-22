@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a New Project {% endblock %}
+
+{% block content %}
+
+
+{% include 'base2.html' %}
+<div class="container">
+
+<h2>Add a New Project</h2>
+
+<form action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div class="mt-3">
+      <label class="form-label">Name of project</label>
+      <input type="text" name="projects_name" class="form-control" required />
+    </div>
+
+    <div class="mt-3">
+
+      <select name="section"  class="form-control" required>       
+          <option  value="0">--Select section--</option>     
+          {% for section in sections  %}
+          <option required value="{{ section.id }}" required>{{ section.section_name }}</option>
+          {% endfor %}
+      </select>
+
+    </div>
+
+
+
+    <div class="mt-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" name="description" required></textarea>
+    </div>
+
+      <div class="mt-3">
+        <label>Choose File:</label>
+        <input required type="file" name="image" class="form-control"/>
+      </div>
+      <br/>
+      <input type="submit" class="btn btn-primary" value="New Game" />
+</form>
+
+</div>
+
+
+
+{% endblock %}
